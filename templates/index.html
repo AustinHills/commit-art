@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>GitHub Commit Painter</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>GitHub Art Canvas</h1>
+            <p>Click squares to cycle through commit intensities.</p>
+            
+            <div id="grid" class="grid"></div>
+
+            <div class="controls">
+                <button onclick="deployArt()" class="btn deploy">1. Deploy to Local Git</button>
+                <button onclick="pushToGitHub()" class="btn push">2. Push to GitHub</button>
+                <button onclick="clearCanvas()" class="btn clear">Clear Canvas</button>
+            </div>
+        </div>
+        
+        <script src="{{ url_for('static', filename='js/script.js') }}" async defer></script>
+    </body>
+</html>
