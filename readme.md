@@ -1,0 +1,1 @@
+This project allows me to create art on my github commits. It supports multiple shades, and it has a web UI to make it easy to design stuff.
