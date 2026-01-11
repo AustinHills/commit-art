@@ -10,6 +10,10 @@ load_dotenv()
 
 app = Flask(__name__)
 
+# Getting info from the .env
+PORT = int(os.getenv('FLASK_PORT', 5000))
+HOST = os.getenv('FLASK_HOST', '0.0.0.0')
+
 # Mapping levels to commit counts to handle multiple colors in the commit graph
 COMMIT_MAP = {1:1,2:2,3:5}
 
@@ -44,5 +48,22 @@ def draw():
         return jsonify({"status": "success", "message": f"Created {total_commits} commits across {len(data)} days!"})
     
     
+@app.route('/deploy_to_github', methods=['POST'])
+def push_to_github():
+    repo_url = os.getenv('GITHUB_REPO_URL')
+    token = os.getenv('GITHUB_TOKEN')
+    
+    # Token inserted into the url so Git automatically logs in
+    authenticated_url = repo_url.replace("https://", f"https://{token}@")
+    
+    # Try to push the commits to github, return exception if failed
+    try:
+        os.system(f"git remote set-url origin {authenticated_url}")
+        os.system("git push origin main")
+        return jsonify({"status": "success", "message": "Art pushed to GitHub!"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+    
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host=HOST, port=PORT)
